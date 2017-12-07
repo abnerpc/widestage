@@ -267,6 +267,7 @@ app.controller('dataSourceCtrl', function ($scope, connection, $routeParams, dat
         data.database = $scope._DataSource.params[0].connection.database;
         data.userName = $scope._DataSource.params[0].connection.userName;
         data.password = $scope._DataSource.params[0].connection.password;
+        data.authSource = $scope._DataSource.params[0].connection.authSource;
 
         if ($scope._DataSource.params[0].connection.file) data.file = $scope._DataSource.params[0].connection.file;
 

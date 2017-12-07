@@ -1,11 +1,12 @@
 exports.testConnection = function(req,data, done) {
     var mongoose = require('mongoose');
 
-
     if (data.userName)  //data.userName+':'+data.password
         var dbURI =  'mongodb://'+data.userName+':'+data.password+'@'+data.host+':'+data.port+'/'+data.database;
         else
         var dbURI =  'mongodb://'+data.host+':'+data.port+'/'+data.database;
+    if (data.authSource)
+        dbURI = dbURI+'?authSource='+data.authSource;
 
     var conn = mongoose.createConnection(dbURI,{ server: { poolSize: 5 } });
 
@@ -32,12 +33,14 @@ exports.testConnection = function(req,data, done) {
 
 exports.getSchemas = function(data, done) {
     var collections = data.entities;
-   var MongoClient = require('mongodb').MongoClient , assert = require('assert');
+    var MongoClient = require('mongodb').MongoClient , assert = require('assert');
 
     if (data.userName)  //data.userName+':'+data.password
         var dbURI =  'mongodb://'+data.userName+':'+data.password+'@'+data.host+':'+data.port+'/'+data.database;
         else
         var dbURI =  'mongodb://'+data.host+':'+data.port+'/'+data.database;
+    if (data.authSource)
+        dbURI = dbURI+'?authSource='+data.authSource;
 
     MongoClient.connect(dbURI, function(err, db) {
         if(err) { return console.dir(err); }
@@ -66,6 +69,8 @@ exports.execOperation = function(operation, params, done) {
                                     var dbURI =  'mongodb://'+dataSource.params[0].connection.userName+':'+dataSource.params[0].connection.password+'@'+dataSource.params[0].connection.host+':'+dataSource.params[0].connection.port+'/'+dataSource.params[0].connection.database;
                                     else
                                     var dbURI = 'mongodb://'+dataSource.params[0].connection.host+':'+dataSource.params[0].connection.port+'/'+dataSource.params[0].connection.database;
+                                if (dataSource.params[0].connection.authSource)
+                                    dbURI = dbURI+'?authSource='+dataSource.params[0].connection.authSource;
 
                                 MongoClient.connect(dbURI, function(err, db) {
                                     if(err) { return console.dir(err); }
@@ -874,6 +879,8 @@ function processCollections(req,query,collections, dataSource, params, thereAreJ
         var dbURI =  'mongodb://'+dataSource.params[0].connection.userName+':'+dataSource.params[0].connection.password+'@'+dataSource.params[0].connection.host+':'+dataSource.params[0].connection.port+'/'+dataSource.params[0].connection.database;
         else
         var dbURI =  'mongodb://'+dataSource.params[0].connection.host+':'+dataSource.params[0].connection.port+'/'+dataSource.params[0].connection.database;
+    if (dataSource.params[0].connection.authSource)
+        dbURI = dbURI+'?authSource='+dataSource.params[0].connection.authSource;
 
     MongoClient.connect(dbURI, function(err, db) {
         if(err) { return console.dir(err); }

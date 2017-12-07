@@ -77,6 +77,13 @@
             </div>
         </div>
 
+        <div class="col-md-12"  ng-if="_DataSource.type == 'MONGODB'">
+            <div class="form-group">
+                <label class="control-label" for="authSource">Authentication Database</label>
+                <input class="form-control" name="authSource" id="authSource" ng-model="_DataSource.params[0].connection.authSource" data-validate="" placeholder="Set here the database used for authentication" novalidate="novalidate" aria-required="true" aria-describedby="full_name-error" aria-invalid="false"><span id="full_name-error" class="validate-has-error" style="display: none;"></span>
+            </div>
+        </div>
+
         <div class="col-md-12" >
             <div class="col-md-6" style="padding:0px">
                 <div class="form-group">

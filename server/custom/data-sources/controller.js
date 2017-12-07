@@ -126,6 +126,7 @@ exports.getEntities = function(req,res)
                 data.database = result.item.params[0].connection.database;
                 data.userName = result.item.params[0].connection.userName;
                 data.password = result.item.params[0].connection.password;
+                data.authSource = result.item.params[0].connection.authSource;
                 data.datasourceID = result.item._id;
                 mongodb.testConnection(req,data, function(result) {
                     serverResponse(req, res, 200, result);
@@ -264,6 +265,7 @@ exports.getReverseEngineering = function(req,res)
                 data.database = result.item.params[0].connection.database;
                 data.userName = result.item.params[0].connection.userName;
                 data.password = result.item.params[0].connection.password;
+                data.authSource = result.item.params[0].connection.authSource;
                 mongodb.getReverseEngineering(data, function(result) {
                     serverResponse(req, res, 200, result);
                 });
@@ -322,6 +324,7 @@ exports.getEntitySchema = function(req,res) {
                 data.database = result.item.params[0].connection.database;
                 data.userName = result.item.params[0].connection.userName;
                 data.password = result.item.params[0].connection.password;
+                data.authSource = result.item.params[0].connection.authSource;
                 data.entities = theEntities;
                 mongodb.getSchemas(data, function(result) {
                     serverResponse(req, res, 200, result);
@@ -406,6 +409,7 @@ exports.getsqlQuerySchema = function(req,res)
                     userName: result.item.params[0].connection.userName,
                     password: result.item.params[0].connection.password,
                     database: result.item.params[0].connection.database,
+                    authSource: result.item.params[0].connection.authSource,
                     sqlQuery: theSqlQuery
                 };
 
